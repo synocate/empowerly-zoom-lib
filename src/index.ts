@@ -1,5 +1,3 @@
-import createZoomMeeting from './createZoomMeeting'
-
-export {
-  createZoomMeeting
-}
+export  * from './createZoomMeeting'
+export * from './cancelZoomMeeting'
+export * from './deleteZoomMeeting'
