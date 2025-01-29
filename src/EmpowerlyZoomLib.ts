@@ -71,7 +71,7 @@ class EmpowerlyZoomLib {
     }
   }
 
-  async cancelZoomMeeting(meetingId: string) {
+  async cancelZoomMeeting(meetingId: number) {
     const token = await getZoomToken(this.zoomAccountId, this.zoomClientId, this.zoomClientSecret)
     const requestOptions = { headers: { 'Authorization': `Bearer ${token}` } }
 
@@ -82,7 +82,7 @@ class EmpowerlyZoomLib {
       })
   }
 
-  async deleteZoomMeeting(meetingId: string) {
+  async deleteZoomMeeting(meetingId: number) {
     const token = await getZoomToken(this.zoomAccountId, this.zoomClientId, this.zoomClientSecret)
     const requestOptions = { headers: { 'Authorization': `Bearer ${token}` } }
 
