@@ -41,26 +41,33 @@ class EmpowerlyZoomLib {
       }
     }, requestOptions).then(resp => resp.data)
 
-    //Add the meetings participants
-    const participants = invitees && invitees.length > 0 ? await Promise.all(invitees.map(async invitee => {
-      const participant = await axios.post(`https://api.zoom.us/v2/meetings/${meeting.id}/registrants`, invitee, requestOptions).then(resp => resp.data)
+    if (invitees && invitees.length > 0) {
+      //Add the meetings participants
+      const participants = invitees && invitees.length > 0 ? await Promise.all(invitees.map(async invitee => {
+        const participant = await axios.post(`https://api.zoom.us/v2/meetings/${meeting.id}/registrants`, invitee, requestOptions).then(resp => resp.data)
+        return {
+          id: participant.id,
+          email: invitee.email,
+          first_name: invitee.first_name,
+          last_name: invitee.last_name,
+          join_url: participant.join_url
+        }
+      })).catch(error => {
+        throw new Error(`Error adding participants: ${JSON.stringify(error.response.data)}`)
+      }) : []
+
+
       return {
-        id: participant.id,
-        email: invitee.email,
-        first_name: invitee.first_name,
-        last_name: invitee.last_name,
-        join_url: participant.join_url
+        id: meeting.id,
+        meeting_url: meeting.join_url,
+        registration_url: meeting.registration_url,
+        participants
       }
-    })).catch(error => {
-      throw new Error(`Error adding participants: ${JSON.stringify(error.response.data)}`)
-    }) : []
-
-
-    return {
-      id: meeting.id,
-      meeting_url: meeting.join_url,
-      registration_url: participants.length > 0 ? meeting.registration_url : undefined,
-      participants
+    } else {
+      return {
+        id: meeting.id,
+        meeting_url: meeting.join_url,
+      }
     }
   }
 
