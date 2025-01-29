@@ -3,7 +3,7 @@ import moment from "moment-timezone";
 import { Invitee } from "./types";
 import { getZoomUserByEmail, getZoomToken } from "./utils";
 
-export const createZoomMeeting = async (email: string, title: string, description: string, durationInMinutes: number, datetime: string, timezone: string, invitees?: Invitee[]) => {
+const createZoomMeeting = async (email: string, title: string, description: string, durationInMinutes: number, datetime: string, timezone: string, invitees?: Invitee[]) => {
   const meetingDateTime = moment(datetime, 'YYYY-MM-DDTHH:mi').tz(timezone, true)
 
   const token = await getZoomToken()
@@ -52,3 +52,5 @@ export const createZoomMeeting = async (email: string, title: string, descriptio
     participants
   }
 }
+
+export default createZoomMeeting

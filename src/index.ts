@@ -1,3 +1,9 @@
-export  * from './createZoomMeeting'
-export * from './cancelZoomMeeting'
-export * from './deleteZoomMeeting'
+import createZoomMeeting from './createZoomMeeting'
+import cancelZoomMeeting from './cancelZoomMeeting'
+import deleteZoomMeeting from './deleteZoomMeeting'
+
+export {
+  createZoomMeeting,
+  cancelZoomMeeting,
+  deleteZoomMeeting
+}
