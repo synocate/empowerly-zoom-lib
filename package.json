@@ -27,7 +27,8 @@
     "url": "git+ssh://git@github.com:synocate/empowerly-zoom-lib.git"
   },
   "publishConfig": {
-    "@synocate:registry": "https://npm.pkg.github.com"
+    "@synocate:registry": "https://npm.pkg.github.com",
+    "access": "public"
   },
   "dependencies": {
     "axios": "^1.7.9",
