@@ -1,6 +1,6 @@
 {
-  "name": "@synocate/empowerly-zoom-lib",
-  "version": "0.0.8",
+  "name": "empowerly-zoom-lib",
+  "version": "0.0.9",
   "description": "Library used as a Zoom Utility Library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -27,7 +27,7 @@
     "url": "git+ssh://git@github.com:synocate/empowerly-zoom-lib.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/",
+    "synocate": "https://npm.pkg.github.com/",
     "access": "public"
   },
   "dependencies": {
