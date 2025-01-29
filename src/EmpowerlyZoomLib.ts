@@ -59,7 +59,7 @@ class EmpowerlyZoomLib {
     return {
       id: meeting.id,
       meeting_url: meeting.join_url,
-      registration_url: meeting.registration_url,
+      registration_url: participants.length > 0 ? meeting.registration_url : undefined,
       participants
     }
   }
