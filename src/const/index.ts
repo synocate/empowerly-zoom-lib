@@ -1,0 +1,1 @@
+export const DEFAULT_DATETIME_FORMAT = 'YYYY-MM-DDTHH:mi'

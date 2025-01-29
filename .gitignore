@@ -1,0 +1,6 @@
+node_modules/
+nats-server*.conf
+.env*
+.DS_Store
+.vscode
+dist
