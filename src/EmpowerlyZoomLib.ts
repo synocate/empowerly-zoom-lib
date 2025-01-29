@@ -2,6 +2,9 @@ import axios from "axios";
 import moment from "moment-timezone";
 import { Invitee } from "./types";
 import { getZoomUserByEmail, getZoomToken } from "./utils";
+import { ZOOM_API_BASE_PATH } from "./const";
+
+const BASE_PATH = ''
 
 class EmpowerlyZoomLib {
   private zoomAccountId: string
@@ -26,7 +29,7 @@ class EmpowerlyZoomLib {
     if (invitees && invitees.length > 0 && user.type < 2) throw new Error('Only paid users can invite participants.')
 
     //Create the meeting
-    const meeting = await axios.post(`https://api.zoom.us/v2/users/${user.id}/meetings`, {
+    const meeting = await axios.post(`${ZOOM_API_BASE_PATH}/users/${user.id}/meetings`, {
       schedule_for: email,
       topic: title,
       agenda: description,
@@ -44,7 +47,7 @@ class EmpowerlyZoomLib {
     if (invitees && invitees.length > 0) {
       //Add the meetings participants
       const participants = invitees && invitees.length > 0 ? await Promise.all(invitees.map(async invitee => {
-        const participant = await axios.post(`https://api.zoom.us/v2/meetings/${meeting.id}/registrants`, invitee, requestOptions).then(resp => resp.data)
+        const participant = await axios.post(`${ZOOM_API_BASE_PATH}/meetings/${meeting.id}/registrants`, invitee, requestOptions).then(resp => resp.data)
         return {
           id: participant.id,
           email: invitee.email,
@@ -75,7 +78,7 @@ class EmpowerlyZoomLib {
     const token = await getZoomToken(this.zoomAccountId, this.zoomClientId, this.zoomClientSecret)
     const requestOptions = { headers: { 'Authorization': `Bearer ${token}` } }
 
-    return axios.put(`https://api.zoom.us/v2/meetings/${meetingId}/status`, { action: 'end' }, requestOptions)
+    return axios.put(`${ZOOM_API_BASE_PATH}/meetings/${meetingId}/status`, { action: 'end' }, requestOptions)
       .then(() => 'ok')
       .catch(error => {
         throw new Error(`Error canceling the meeting "${meetingId}": ${JSON.stringify(error.response.data)}`)
@@ -86,7 +89,7 @@ class EmpowerlyZoomLib {
     const token = await getZoomToken(this.zoomAccountId, this.zoomClientId, this.zoomClientSecret)
     const requestOptions = { headers: { 'Authorization': `Bearer ${token}` } }
 
-    return axios.delete(`https://api.zoom.us/v2/meetings/${meetingId}`, requestOptions)
+    return axios.delete(`${ZOOM_API_BASE_PATH}/meetings/${meetingId}`, requestOptions)
       .then(() => 'ok')
       .catch(error => {
         throw new Error(`Error deleting the meeting "${meetingId}": ${JSON.stringify(error.response.data)}`)
